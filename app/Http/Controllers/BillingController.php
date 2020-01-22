@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Plan;
 
 class BillingController extends Controller
 {
     public function billing (Request $request) {
-        return view('settings.billing');
+        $plans = Plan::get();
+        return view('settings.billing', compact('plans'));
     }
 
     public function billing_save (Request $request){
@@ -15,9 +17,11 @@ class BillingController extends Controller
 
         try {
             if ($user->subscribed('main')) {
-                // update their credit card
-                $user->updateDefaultPaymentMethod($request->payment_method);
+                $user->updateDefaultPaymentMethod($request->payment_method); // update their credit card
             } else {
+                $plan = Plan::where('name', '=', $request->plan)->first();
+                $user->plan_id = $plan->id;
+                $user->save();
                 $user->newSubscription('main', 'basic')->create($request->payment_method);
             }
         } catch(Exception $e){

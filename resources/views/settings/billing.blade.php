@@ -37,8 +37,8 @@
                                         </svg>
                                         You are subscribed ! Thanks you !
                                     </div>
-                                    <div class="text-normal text-blue-600 mb-1">Last 4 digits:  {{ auth()->user()->card_last_four }}</div>
-                                    <div class="text-normal text-blue-600 mb-1">Credit Card Brand:  {{ auth()->user()->card_brand }}</div>
+                                    <div class="text-normal text-blue-600 mb-1">Last 4 Digits: **** <b>{{ auth()->user()->card_last_four }}</b></div>
+                                    <div class="text-normal text-blue-600 mb-1">Credit Card Brand: <b> {{ auth()->user()->card_brand }}</b></div>
                                     <div class="text-xs text-gray-500">To update your default payment method, Add a new card below</div>
                                 </div>
                             <hr class="border-gray-200">
@@ -52,8 +52,26 @@
 
                         <div class="py-8 px-16">
                             <label for="cc" class="text-sm text-gray-600">Credit Card</label>
-                            <div id="card-element" class="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none focus:border-indigo-500"></div>
+                            <div id="card-element" class="mt-2 border-2 border-gray-200 px-3 py-4 block w-full rounded-lg text-base text-gray-900 focus:outline-none focus:border-indigo-500"></div>
                             <div id="card-errors" class="text-red-400 text-bold mt-2 text-sm font-medium"></div>
+                        </div>
+                        <hr class="border-gray-200">
+
+                        <div class="py-8 px-16">
+                            <p class="text-sm text-gray-600 mb-4">Select a Plan</p>
+                            @foreach ($plans as $plan)
+                                <input type="radio" id="{{ $plan->name }}-plan" name="plan" @if($loop->first) checked @endif value="{{ $plan->name }}" class="radio-plan hidden">
+                                <label for="{{ ucfirst($plan->name) }}-plan" class="border-2 border-gray-300 w-full px-4 py-4 rounded-lg block mb-2">
+                                    <div class="flex">
+                                        <img src="/img/plans/{{ $plan->name }}.png" alt="plans" class="w-16 h-16 mr-3">
+                                    
+                                        <div>
+                                            <span class="block">{{ $plan->name }}</span>
+                                            <span class="text-xs text-gray-600">{{ $plan->description }}</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            @endforeach
                         </div>
                         <hr class="border-gray-200">
                     </div>

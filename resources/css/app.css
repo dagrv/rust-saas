@@ -65,3 +65,7 @@
  #menu-toggle:checked + #menu {
     display: block;
  }
+
+ .radio-plan:checked + label {
+   @apply border-green-600;
+ }
