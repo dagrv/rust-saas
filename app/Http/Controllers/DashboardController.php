@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -20,7 +21,18 @@ class DashboardController extends Controller
     }
     public function profile_save(Request $request)
     {
-        echo 'Profile Saved !';
+        $user = auth()->user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $photo = $request->photo;
+        $filename = Str::slug($request->name) . '-' . uniqid() . '.' . $photo->extension();
+        $photo->storeAs('public/images/user', $filename);
+
+        $user->photo = $filename;
+        $user->save();
+
+        return back()->with(['alert' => 'Profil Successfully updated !', 'alert_type' => 'success']);
     }
 
 

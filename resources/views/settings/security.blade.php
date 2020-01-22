@@ -8,11 +8,6 @@
         @include('partials.dashboard-header')
 
         <div class="container mx-auto max-w-3xl mt-8">
-
-        @if (session('alert'))
-            <p>{{ session('alert') }}</p>
-        @endif
-
             <h1 class="text-2xl font-bold text-gray-700 px-6 md:px-0">Security Settings</h1>
             
             @include('settings.nav')
