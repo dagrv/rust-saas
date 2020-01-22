@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+
+// Panoptikum
 
 class DashboardController extends Controller
 {
@@ -50,7 +53,7 @@ class DashboardController extends Controller
 
         $user->save();
 
-        return back()->with(['alert' => 'Profil Successfully updated !', 'alert_type' => 'success']);
+        return back()->with(['alert' => 'Profil Successfully Updated !', 'alert_type' => 'success']);
     }
 
 
@@ -59,9 +62,19 @@ class DashboardController extends Controller
     {
         return view('settings.security');
     }
+
     public function security_save(Request $request)
     {
-        echo 'Security !';
+        $user = auth()->user();
+
+        $request->validate([
+            'password' => 'required|confirmed',
+        ]);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return back()->with(['alert' => 'Your Password Was Successfully Updated !', 'alert_type' => 'success']);
     }
 
 
@@ -70,6 +83,7 @@ class DashboardController extends Controller
     {
         return view('settings.billing');
     }
+
     public function billing_save(Request $request)
     {
         echo 'Billing !';
