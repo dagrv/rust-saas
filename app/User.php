@@ -36,4 +36,17 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get Users Profile Picture
+     */
+    public function getPhotoAttribute($value)
+    {
+        if (is_null($value)) {
+            return url('/img/default2.png');
+        } else {
+            // Uploaded Photo goes here...
+            return '';
+        }
+    }
 }

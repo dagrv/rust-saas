@@ -7,9 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-        var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-M32QMBF');
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M32QMBF');
+
     </script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicons/apple-icon-57x57.png">
@@ -21,7 +33,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/img/favicons/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/img/favicons/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/img/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicons/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/img/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
@@ -37,21 +49,24 @@
         .gradient {
             background: linear-gradient(45deg, #FF4E50, #FFD200);
         }
+
     </style>
-    
+
     <title>@yield('title')</title>
 </head>
 
 <body class="antialiased">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M32QMBF" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M32QMBF" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Main Content -->
     @yield('content')
 
+    <script src="/js/app.js"></script>
 </body>
 
 </html>

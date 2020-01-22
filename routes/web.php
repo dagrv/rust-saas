@@ -26,15 +26,26 @@ Route::get('logout', function(){
 Route::group(['middleware' => ['auth', 'verified']], function() {
     
     // Dashboard
-    Route::get('dashboard', function(){
-        echo 'welcome to your dashboard <br>';
-        echo '<a href="/logout">Logout</a>';
-    });
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
+    // Settings Redirections
+    Route::redirect('settings', 'settings/profile')->name('settings');
+    
+    // Profile
+    Route::get('settings/profile', 'DashboardController@profile')->name('profile');
+    Route::post('settings/profile', 'DashboardController@profile_save')->name('profile.save'); // Submission
+
+    // Settings -> Security
+    Route::get('settings/security', 'DashboardController@security')->name('security');
+    Route::post('settings/security', 'DashboardController@security_save')->name('security.save');
+
+    // Settings -> Billing
+    Route::get('settings/billing', 'DashboardController@billing')->name('billing');
+    Route::post('settings/billing', 'DashboardController@billing_save')->name('billing.save');
 });
 
-// Auth & Email verification
+// Auth & Email verification on SignUp
 Auth::routes(['verify' => true]);
 
-// Useless 
+// Home (2)
 Route::get('/home', 'HomeController@index')->name('home');
