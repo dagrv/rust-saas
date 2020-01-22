@@ -28,20 +28,21 @@
                     </div>
                     
                     <div class="md:w-2/3 w-full">
-                        <div class="py-8 px-16">
-
-                            @if(auth()->user()->subscribed('main'))
-                                <div class="py-6 px-2">
-                                    <div class="mb-2 text-normal">🎉 Thanks for being a subscriber ! 🎊</div>
-
-                                    <div class="text-sm text-blue-600 mb-1">Last 4 digits:  {{ auth()->user()->card_last_four }}</div>
-                                    <div class="text-sm text-blue-600 mb-1">Credit Card Brand:  {{ auth()->user()->card_brand }}</div>
+                        @if(auth()->user()->subscribed('main'))
+                                <div class="py-8 px-16">
+                                    <div class="mb-2 text-normal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 mr-2 flex-shrink-0">
+                                            <circle cx="12" cy="12" r="10" class="text-green-200 fill-current"></circle>
+                                            <path d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" class="text-green-600 fill-current"></path>
+                                        </svg>
+                                        You are subscribed ! Thanks you !
+                                    </div>
+                                    <div class="text-normal text-blue-600 mb-1">Last 4 digits:  {{ auth()->user()->card_last_four }}</div>
+                                    <div class="text-normal text-blue-600 mb-1">Credit Card Brand:  {{ auth()->user()->card_brand }}</div>
                                     <div class="text-xs text-gray-500">To update your default payment method, Add a new card below</div>
-                                </div>                                
-                            @endif
-
-                        </div>
-                        <hr class="border-gray-200">
+                                </div>
+                            <hr class="border-gray-200">
+                        @endif
                         
                         <div class="py-8 px-16">
                             <label for="card-holder-name" class="text-sm text-gray-600">Name on your Credit Card </label>
@@ -52,6 +53,7 @@
                         <div class="py-8 px-16">
                             <label for="cc" class="text-sm text-gray-600">Credit Card</label>
                             <div id="card-element" class="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none focus:border-indigo-500"></div>
+                            <div id="card-errors" class="text-red-400 text-bold mt-2 text-sm font-medium"></div>
                         </div>
                         <hr class="border-gray-200">
                     </div>
@@ -59,7 +61,6 @@
 
                 <div class="p-16 py-8 bg-white clearfix rounded-b-lg border-t border-gray-200">
                     <p class="float-left text-sm text-gray-500 tracking-tight mt-2">Click on Save to update your Billing Settings</p>
-
                     <button id="card-button" data-secret="{{ auth()->user()->createSetupIntent()->client_secret }}" class="bg-green-500 text-white text-sm font-medium px-6 py-2 rounded float-right cursor-pointer">Update Payment Method</button>
                 </div>
             </form>
@@ -77,10 +78,18 @@
 
         cardElement.mount('#card-element');
 
-
         const cardHolderName = document.getElementById('card-holder-name');
         const cardButton = document.getElementById('card-button');
         const clientSecret = cardButton.dataset.secret;
+        const cardError = document.getElementById('card-errors');
+
+        cardElement.addEventListener('change', function(event) {
+            if (event.error) {
+                cardError.textContent = event.error.message;
+            } else {
+                cardError.textContent = '';
+            }
+        });
 
         var form = document.getElementById('billing-form');
             form.addEventListener('submit', async (e) => {
@@ -94,6 +103,9 @@
                 );
                 if (error) {
                     // Display "error.message" to the user...
+                    
+                    cardError.textContent = error.message;
+                    
                     console.log(error);
                 } else {
                     // The card has been verified successfully...
