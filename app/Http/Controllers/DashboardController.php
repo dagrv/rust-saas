@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DashboardController extends Controller
 {
@@ -22,14 +23,31 @@ class DashboardController extends Controller
     public function profile_save(Request $request)
     {
         $user = auth()->user();
-        $user->name = $request->name;
-        $user->email = $request->email;
 
-        $photo = $request->photo;
-        $filename = Str::slug($request->name) . '-' . uniqid() . '.' . $photo->extension();
-        $photo->storeAs('public/images/user', $filename);
+        $request->validate([
+            'name'  => 'required|min:3|max:255',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ]
+        ]);
 
-        $user->photo = $filename;
+        if ($request->hasFile('photo')) {
+            $request->validate([
+                'photo' => 'image|mimes:jpeg,bmp,png,jpg,gif,tiff'
+            ]);
+            
+            $user->name = $request->name;
+            $user->email = $request->email;
+
+            $photo = $request->photo;
+            $filename = Str::slug($request->name) . '-' . uniqid() . '.' . $photo->extension();
+            $photo->storeAs('public/images/user', $filename);
+
+            $user->photo = $filename;
+        }
+
         $user->save();
 
         return back()->with(['alert' => 'Profil Successfully updated !', 'alert_type' => 'success']);
