@@ -20,7 +20,10 @@
             <div id="switch-plans-modal" class="fixed w-full h-full inset-0 z-50">
                 <div class="fixed opacity-50 bg-black inset-0 w-full h-full"></div>
                 
-                <div class="absolute bg-white rounded-lg p-5" id="switch-plans">
+                <form method="POST" action="{{ route('billing.switch_plan') }}" class="absolute bg-white rounded-lg p-5" id="switch-plans">
+                    
+                    @csrf
+                    
                     <div id="switch-plans-close" class="absolute right-0 top-0 -mt-4 -mr-4 w-8 h-8 rounded-full shadow bg-white text-center flex justify-center align-center text-xl text-red-600 font-bold cursor-pointer bg-red-100">
                         &times;
                     </div>
@@ -32,7 +35,7 @@
                     <button class="bg-green-500 text-white mt-2 text-sm font-medium px-6 py-2 rounded float-right cursor-pointer">
                         Switch Plan
                     </button>
-                </div>
+                </form>
             </div>
 
             <form action="{{ route('billing.save') }}" method="POST" id="billing-form" enctype="multipart/form-data">

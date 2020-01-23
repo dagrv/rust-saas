@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Plan;
+use Exception;
 
 class BillingController extends Controller
 {
@@ -26,6 +27,22 @@ class BillingController extends Controller
             }
         } catch(Exception $e){
             return back()->with(['alert' => 'Something went wrong submitting your billing info', 'alert_type' => 'error']);
+        }
+
+        return back()->with(['alert' => 'Successfully updated your billing info', 'alert_type' => 'success']);
+    }
+
+    public function switch_plan(Request $request)
+    {
+        $plan = Plan::where('name', '=', $request->plan)->first();
+        $user = auth()->user();
+
+        try {
+            $user->subscription('main')->swap($request->plan);
+            $user->plan_id = $plan->id;
+            $user->save();
+        } catch(Exception $e) {
+            return back()->with(['alert' => 'Something went wrong while switching plans', 'alert_type' => 'error']);
         }
 
         return back()->with(['alert' => 'Successfully updated your billing info', 'alert_type' => 'success']);

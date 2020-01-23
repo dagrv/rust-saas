@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     // Settings -> Billing
     Route::get('settings/billing', 'BillingController@billing')->name('billing');
     Route::post('settings/billing', 'BillingController@billing_save')->name('billing.save');
+
+    Route::post('settings/billing/switch_plan', 'BillingController@switch_plan')->name('billing.switch_plan');
 });
 
 // Auth & Email verification on SignUp
