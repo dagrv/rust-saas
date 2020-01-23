@@ -8,7 +8,7 @@
     <label for="menu-toggle" class="cursor-pointer lg:hidden block">
         <svg class="fill-current text-gray-600 hover:text-gray-800" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
         <title>menu</title>
-        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" </path> </svg> </label> <input class="hidden" type="checkbox" id="menu-toggle" />
+        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"</path></svg> </label> <input class="hidden" type="checkbox" id="menu-toggle" />
 
         <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">
             <nav>
@@ -21,7 +21,13 @@
             </nav>
 
             <a href="#" class="group lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor border-l border-gray-300 pl-4" id="userdropdown">
-                <p class="text-sm pr-4 text-right ignore-body-click">{{ auth()->user()->name }} <br> <span class="text-sm text-green-500 text-right ignore-body-click">{{ ucfirst(auth()->user()->plan->name) }}</span></p>
+                <p class="text-sm pr-4 text-right ignore-body-click">{{ auth()->user()->name }} <br>
+                    @if (auth()->user()->onTrial())
+                        <span class="text-sm text-orange-500 text-right ignore-body-click">Trial Period</span>
+                    @else 
+                        <span class="text-sm text-green-500 text-right ignore-body-click">{{ ucfirst(auth()->user()->plan->name) }}</span>
+                    @endif
+                </p>
                 <img class="rounded-full w-10 h-10 border-2 border-gray-200 group-hover:border-green-400 ignore-body-click" src="{{ auth()->user()->photo }}" alt="avatar">
             </a>
 

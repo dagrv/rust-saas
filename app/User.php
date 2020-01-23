@@ -36,6 +36,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dates = [
+        'trial_ends_at'
+    ];
+
     /**
      * Get Users Profile Picture
      * @return Storage

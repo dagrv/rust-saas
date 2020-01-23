@@ -17,31 +17,29 @@
             
             @include('settings.nav')
 
-            <div id="switch-plans-modal" class="fixed w-full h-full inset-0 z-50">
-                <div class="fixed opacity-50 bg-black inset-0 w-full h-full"></div>
-                
-                <form method="POST" action="{{ route('billing.switch_plan') }}" class="absolute bg-white rounded-lg p-5" id="switch-plans">
+            @if(auth()->user()->subscribed('main'))
+                <div id="switch-plans-modal" class="fixed w-full h-full inset-0 z-50">
+                    <div class="fixed opacity-50 bg-black inset-0 w-full h-full"></div>
                     
-                    @csrf
-                    
-                    <div id="switch-plans-close" class="absolute right-0 top-0 -mt-4 -mr-4 w-8 h-8 rounded-full shadow bg-white text-center flex justify-center align-center text-xl text-red-600 font-bold cursor-pointer bg-red-100">
-                        &times;
-                    </div>
-                    
-                    <p class="text-normal text-gray-600 mb-4">Switch Plan</p>
+                    <form method="POST" action="{{ route('billing.switch_plan') }}" class="absolute bg-white rounded-lg p-5" id="switch-plans">
+                        @csrf
+                        <div id="switch-plans-close" class="absolute right-0 top-0 -mt-4 -mr-4 w-8 h-8 rounded-full shadow bg-white text-center flex justify-center align-center text-xl text-red-600 font-bold cursor-pointer bg-red-100">
+                            &times;
+                        </div>
+                        
+                        <p class="text-normal text-gray-600 mb-4">Switch Plan</p>
 
-                    @include('partials.plans')
-                    
-                    <button class="bg-green-500 text-white mt-2 text-sm font-medium px-6 py-2 rounded float-right cursor-pointer">
-                        Switch Plan
-                    </button>
-                </form>
-            </div>
+                        @include('partials.plans')
+                        
+                        <button class="bg-green-500 text-white mt-2 text-sm font-medium px-6 py-2 rounded float-right cursor-pointer">
+                            Switch Plan
+                        </button>
+                    </form>
+                </div>
+            @endif
 
             <form action="{{ route('billing.save') }}" method="POST" id="billing-form" enctype="multipart/form-data">
-                
                 @csrf
-
                 <div class="w-full bg-white rounded-lg mx-auto mt-8 flex overflow-hidden rounded-b-none">
                     <div class="w-1/3 bg-gray-100 p-8 hidden md:inline-block">
                         <h2 class="font-medium text-md text-gray-700 mb-4 tracking-wide">Billing Settings</h2>
@@ -79,6 +77,10 @@
                                 </div>
                             <hr class="border-gray-200">
                         @endif
+
+                        @if (auth()->user()->onTrial())
+                            @include('partials.trial_notification')
+                        @endif
                         
                         <div class="py-8 px-16">
                             <label for="card-holder-name" class="text-sm text-gray-600">Name on your Credit Card </label>
@@ -95,7 +97,7 @@
                         @if(!auth()->user()->subscribed('main'))
                         <hr class="border-gray-200">
                             <div class="py-8 px-16">
-                                @include('partials.plan')
+                                @include('partials.plans')
                             </div>
                         @endif
                         <hr class="border-gray-200">
