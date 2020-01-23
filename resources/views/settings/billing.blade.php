@@ -17,6 +17,24 @@
             
             @include('settings.nav')
 
+            <div id="switch-plans-modal" class="fixed w-full h-full inset-0 z-50">
+                <div class="fixed opacity-50 bg-black inset-0 w-full h-full"></div>
+                
+                <div class="absolute bg-white rounded-lg p-5" id="switch-plans">
+                    <div id="switch-plans-close" class="absolute right-0 top-0 -mt-4 -mr-4 w-8 h-8 rounded-full shadow bg-white text-center flex justify-center align-center text-xl text-red-600 font-bold cursor-pointer bg-red-100">
+                        &times;
+                    </div>
+                    
+                    <p class="text-normal text-gray-600 mb-4">Switch Plan</p>
+
+                    @include('partials.plans')
+                    
+                    <button class="bg-green-500 text-white mt-2 text-sm font-medium px-6 py-2 rounded float-right cursor-pointer">
+                        Switch Plan
+                    </button>
+                </div>
+            </div>
+
             <form action="{{ route('billing.save') }}" method="POST" id="billing-form" enctype="multipart/form-data">
                 
                 @csrf
@@ -29,13 +47,28 @@
                     
                     <div class="md:w-2/3 w-full">
                         @if(auth()->user()->subscribed('main'))
+                                <div class="py-8 px-10">
+                                    <div class="flex">
+                                        <img src="/img/plans/{{ auth()->user()->plan->name }}.png" alt="plans" class="w-16 h-16 mr-3">
+                                        
+                                        <div>
+                                            <span class="block">Current : {{ ucfirst(auth()->user()->plan->name) }} Plan</span>
+                                            <span class="text-xs text-gray-600">{{ auth()->user()->plan->description }}</span>
+                                        </div>
+                                    </div>
+                                    <div id="switch-plan-btn" class="bg-green-500 text-white text-sm font-medium px-6 py-2 rounded mt-4 shadow text-center cursor-pointer">
+                                        Switch Plan
+                                    </div>
+                                </div>
+
+                                <hr class="border-gray-200">
+
                                 <div class="py-8 px-16">
                                     <div class="mb-2 text-normal">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 mr-2 flex-shrink-0">
                                             <circle cx="12" cy="12" r="10" class="text-green-200 fill-current"></circle>
                                             <path d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" class="text-green-600 fill-current"></path>
                                         </svg>
-                                        You are subscribed ! Thanks you !
                                     </div>
                                     <div class="text-normal text-blue-600 mb-1">Last 4 Digits: **** <b>{{ auth()->user()->card_last_four }}</b></div>
                                     <div class="text-normal text-blue-600 mb-1">Credit Card Brand: <b> {{ auth()->user()->card_brand }}</b></div>
@@ -55,24 +88,13 @@
                             <div id="card-element" class="mt-2 border-2 border-gray-200 px-3 py-4 block w-full rounded-lg text-base text-gray-900 focus:outline-none focus:border-indigo-500"></div>
                             <div id="card-errors" class="text-red-400 text-bold mt-2 text-sm font-medium"></div>
                         </div>
+                        
+                        @if(!auth()->user()->subscribed('main'))
                         <hr class="border-gray-200">
-
-                        <div class="py-8 px-16">
-                            <p class="text-sm text-gray-600 mb-4">Select a Plan</p>
-                            @foreach ($plans as $plan)
-                                <input type="radio" id="{{ $plan->name }}-plan" name="plan" @if($loop->first) checked @endif value="{{ $plan->name }}" class="radio-plan hidden">
-                                <label for="{{ ucfirst($plan->name) }}-plan" class="border-2 border-gray-300 w-full px-4 py-4 rounded-lg block mb-2">
-                                    <div class="flex">
-                                        <img src="/img/plans/{{ $plan->name }}.png" alt="plans" class="w-16 h-16 mr-3">
-                                    
-                                        <div>
-                                            <span class="block">{{ $plan->name }}</span>
-                                            <span class="text-xs text-gray-600">{{ $plan->description }}</span>
-                                        </div>
-                                    </div>
-                                </label>
-                            @endforeach
-                        </div>
+                            <div class="py-8 px-16">
+                                @include('partials.plan')
+                            </div>
+                        @endif
                         <hr class="border-gray-200">
                     </div>
                 </div>

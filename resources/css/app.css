@@ -62,10 +62,23 @@
  */
 
 
- #menu-toggle:checked + #menu {
-    display: block;
- }
+#menu-toggle:checked + #menu {
+   display: block;
+}
 
- .radio-plan:checked + label {
-   @apply border-green-600;
- }
+.radio-plan:checked + label {
+@apply border-green-600;
+}
+
+#switch-plans-modal {
+   display:none;
+}
+
+#switch-plans {
+   width:500px;
+   height:auto;
+   left:50%;
+   top:50%;
+   margin-left:-250px;
+   margin-top:-200px;
+}

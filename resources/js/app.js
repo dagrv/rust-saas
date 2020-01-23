@@ -21,3 +21,17 @@ if (document.getElementById('userdropdown')) {
         }
     });
 }
+
+// Plans switcher / modal
+if (document.getElementById('switch-plan-btn')) {
+    document.getElementById('switch-plan-btn').addEventListener('click', function () {
+        document.getElementById('switch-plans-modal').style.display = 'block';
+    });
+}
+
+// Close plan switcher modal
+if (document.getElementById('switch-plans-close')) {
+    document.getElementById('switch-plans-close').addEventListener('click', function () {
+        document.getElementById('switch-plans-modal').style.display = 'none';
+    });
+}
