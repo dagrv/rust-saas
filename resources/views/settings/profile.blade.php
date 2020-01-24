@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Profile Settings')
+@section('title', 'Profile')
 
 @section('content')
     <div class="bg-gray-100 min-h-screen pb-24">

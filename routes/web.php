@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth', 'verified', 'subscriber']], function() {
     Route::post('settings/security', 'DashboardController@security_save')->name('security.save');
 
     Route::post('settings/billing/switch_plan', 'BillingController@switch_plan')->name('billing.switch_plan');
+
+    Route::get('settings/invoices', 'DashboardController@invoices')->name('invoices');           // Invoices
 });
 
 Route::group(['middleware' => ['auth', 'verified']], function() {

@@ -76,4 +76,10 @@ class DashboardController extends Controller
 
         return back()->with(['alert' => 'Your Password Was Successfully Updated !', 'alert_type' => 'success']);
     }
+
+    public function invoices(Request $request)
+    {
+        $invoices = auth()->user()->invoices();
+        return view('settings.invoices', compact('invoices'));
+    }
 }
