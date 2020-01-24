@@ -23,6 +23,7 @@ class BillingController extends Controller
             } else {
                 $plan = Plan::where('name', '=', $request->plan)->first();
                 $user->plan_id = $plan->id;
+                $user->trial_ends_at = null;
                 $user->save();
 
                 $user->newSubscription('main', $request->plan)->create($request->payment_method);
@@ -47,5 +48,19 @@ class BillingController extends Controller
         }
 
         return back()->with(['alert' => 'Successfully switched your plan', 'alert_type' => 'success']);
+    }
+
+    public function cancel(Request $request)
+    {
+        auth()->user()->subscription('main')->cancel(); //cancelNow() removes immediatly all grace period, cancel() does not
+        
+        return back()->with(['alert' => 'Successfully cancelled your plan.', 'alert_type' => 'success']);
+    }
+
+    public function resume()
+    {
+        auth()->user()->subscription('main')->resume();
+
+        return back()->with(['alert' => 'Subscription successfully resumed.', 'alert_type' => 'success']);
     }
 }

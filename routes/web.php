@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth', 'verified', 'subscriber']], function() {
     Route::get('settings/invoices', 'DashboardController@invoices')->name('invoices');           // Invoices
     Route::get('settings/invoices/download/{invoice}', 'DashboardController@invoices_download')->name('invoices.download');   // Invoices download
 
+    Route::get('settings/billing/cancel', 'BillingController@cancel')->name('cancel');      // Cancel Plan
+
+    Route::get('settings/billing/resume', 'BillingController@resume')->name('resume');      // Resume Plan
 });
 
 Route::group(['middleware' => ['auth', 'verified']], function() {
