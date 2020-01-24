@@ -23,27 +23,25 @@ Route::get('logout', function(){
 });
 
 // Auth Middleware
-Route::group(['middleware' => ['auth', 'verified']], function() {
-    
-    // Dashboard
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-
-    // Settings Redirections
-    Route::redirect('settings', 'settings/profile')->name('settings');
+Route::group(['middleware' => ['auth', 'verified', 'subscriber']], function() {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');                    // Dashboard
+    Route::redirect('settings', 'settings/profile')->name('settings');                          // Settings Redirections
     
     // Profile
     Route::get('settings/profile', 'DashboardController@profile')->name('profile');
-    Route::post('settings/profile', 'DashboardController@profile_save')->name('profile.save'); // Submission
+    Route::post('settings/profile', 'DashboardController@profile_save')->name('profile.save');  // Submission
 
     // Settings -> Security
     Route::get('settings/security', 'DashboardController@security')->name('security');
     Route::post('settings/security', 'DashboardController@security_save')->name('security.save');
 
+    Route::post('settings/billing/switch_plan', 'BillingController@switch_plan')->name('billing.switch_plan');
+});
+
+Route::group(['middleware' => ['auth', 'verified']], function() {
     // Settings -> Billing
     Route::get('settings/billing', 'BillingController@billing')->name('billing');
     Route::post('settings/billing', 'BillingController@billing_save')->name('billing.save');
-
-    Route::post('settings/billing/switch_plan', 'BillingController@switch_plan')->name('billing.switch_plan');
 });
 
 // Auth & Email verification on SignUp

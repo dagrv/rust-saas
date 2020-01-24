@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Plan;
-use Exception;
 
 class BillingController extends Controller
 {
@@ -18,12 +17,15 @@ class BillingController extends Controller
 
         try {
             if ($user->subscribed('main')) {
-                $user->updateDefaultPaymentMethod($request->payment_method); // update their credit card
+                // update their credit card
+                $user->updateDefaultPaymentMethod($request->payment_method);
+                
             } else {
                 $plan = Plan::where('name', '=', $request->plan)->first();
                 $user->plan_id = $plan->id;
                 $user->save();
-                $user->newSubscription('main', 'basic')->create($request->payment_method);
+
+                $user->newSubscription('main', $request->plan)->create($request->payment_method);
             }
         } catch(Exception $e){
             return back()->with(['alert' => 'Something went wrong submitting your billing info', 'alert_type' => 'error']);
@@ -32,19 +34,18 @@ class BillingController extends Controller
         return back()->with(['alert' => 'Successfully updated your billing info', 'alert_type' => 'success']);
     }
 
-    public function switch_plan(Request $request)
-    {
+    public function switch_plan (Request $request) {
         $plan = Plan::where('name', '=', $request->plan)->first();
         $user = auth()->user();
 
-        try {
+        try{
             $user->subscription('main')->swap($request->plan);
             $user->plan_id = $plan->id;
             $user->save();
-        } catch(Exception $e) {
-            return back()->with(['alert' => 'Something went wrong while switching plans', 'alert_type' => 'error']);
+        } catch(Exception $e){
+            return back()->with(['alert' => 'Sorry, there was an error switching plans.', 'alert_type' => 'error']);
         }
 
-        return back()->with(['alert' => 'Successfully updated your billing info', 'alert_type' => 'success']);
+        return back()->with(['alert' => 'Successfully switched your plan', 'alert_type' => 'success']);
     }
 }

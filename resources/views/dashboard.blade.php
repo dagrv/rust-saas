@@ -10,9 +10,11 @@
 
         <div class="px-4 mt-2">
 
-            <div class="max-w-3xl rounded-lg mx-auto mt-8 -mb-8">
-                @include('partials.trial_notification', ['action_btn' => true])
-            </div>
+            @if(auth()->user()->onTrial())
+                <div class="max-w-3xl rounded-lg mx-auto mt-8 -mb-8">
+                    @include('partials.trial_notification', ['action_btn' => true])
+                </div>
+            @endif
 
             <div class="max-w-3xl bg-white rounded-lg mx-auto my-16 p-16">
                 <h1 class="text-2xl font-medium mb-2">Welcome to Your Dashboard</h1>

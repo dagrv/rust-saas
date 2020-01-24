@@ -17,7 +17,7 @@
             
             @include('settings.nav')
 
-            @if(auth()->user()->subscribed('main'))
+            @if (auth()->user()->subscribed('main'))
                 <div id="switch-plans-modal" class="fixed w-full h-full inset-0 z-50">
                     <div class="fixed opacity-50 bg-black inset-0 w-full h-full"></div>
                     
@@ -30,7 +30,7 @@
                         <p class="text-normal text-gray-600 mb-4">Switch Plan</p>
 
                         @include('partials.plans')
-                        
+
                         <button class="bg-green-500 text-white mt-2 text-sm font-medium px-6 py-2 rounded float-right cursor-pointer">
                             Switch Plan
                         </button>
@@ -79,7 +79,9 @@
                         @endif
 
                         @if (auth()->user()->onTrial())
+                            
                             @include('partials.trial_notification')
+                            
                         @endif
                         
                         <div class="py-8 px-16">
