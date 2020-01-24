@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth', 'verified', 'subscriber']], function() {
     Route::post('settings/billing/switch_plan', 'BillingController@switch_plan')->name('billing.switch_plan');
 
     Route::get('settings/invoices', 'DashboardController@invoices')->name('invoices');           // Invoices
+    Route::get('settings/invoices/download/{invoice}', 'DashboardController@invoices_download')->name('invoices.download');   // Invoices download
+
 });
 
 Route::group(['middleware' => ['auth', 'verified']], function() {

@@ -34,7 +34,7 @@
                                     <tr>
                                         <td class="border-b border-green-600 py-3 text-gray-800">{{ $invoice->date()->toFormattedDateString() }}</td>
                                         <td class="border-b border-green-600 py-3 text-gray-800">{{ $invoice->total() }}</td>
-                                        <td class="border-b border-green-600 py-3 text-gray-800"><a href="/user/invoice/{{ $invoice->id }}" class="text-green-400 font-bold underline rounded-lg">Download</a></td>
+                                        <td class="border-b border-green-600 py-3 text-gray-800"><a href="{{ route('invoices.download', $invoice->id ) }}" class="text-green-400 font-bold underline rounded-lg">Download</a></td>
                                     </tr>
                                 @endforeach
                             </table>

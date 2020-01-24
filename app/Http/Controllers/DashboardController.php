@@ -82,4 +82,14 @@ class DashboardController extends Controller
         $invoices = auth()->user()->invoices();
         return view('settings.invoices', compact('invoices'));
     }
+
+    public function invoices_download(Request $request, $invoiceId)
+    {
+        return $request->user()->downloadInvoice($invoiceId, [
+            'vendor'  => 'rust-software',
+            'product' => 'rust-software subscription',
+        ]);
+    }
+
+
 }
