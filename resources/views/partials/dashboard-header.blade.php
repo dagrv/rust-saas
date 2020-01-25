@@ -16,7 +16,7 @@
                     <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent @if(Request::is('dashboard')){{ 'border-orange-500 text-orange-500 font-bold' }} @else {{ 'text-gray-600 hover:text-gray-900' }} @endif" border-orange-500 text-orange-500 font-bold" href="{{ route('dashboard') }}">Dashboard</a></li>
                     <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent @if(Request::is('courses')){{ 'border-orange-500 text-orange-500 font-bold' }} @else {{ 'text-gray-600 hover:text-gray-900' }} @endif" text-gray-600 hover:text-gray-900" href="#">Courses</a></li>
                     <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent @if(Request::is('users')){{ 'border-orange-500 text-orange-500 font-bold' }} @else {{ 'text-gray-600 hover:text-gray-900' }} @endif" text-gray-600 hover:text-gray-900" href="#">Users</a></li>
-                    <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent @if(Request::is('support')){{ 'border-orange-500 text-orange-500 font-bold' }} @else {{ 'text-gray-600 hover:text-gray-900' }} @endif" text-gray-600 hover:text-gray-900 lg:mb-0 mb-2" href="#">Support</a></li>
+                    <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent @if(Request::is('support')){{ 'border-orange-500 text-orange-500 font-bold' }} @else {{ 'text-gray-600 hover:text-gray-900' }} @endif" text-gray-600 hover:text-gray-900 lg:mb-0 mb-2" href="{{ route('support') }}">Support</a></li>
                 </ul>
             </nav>
 

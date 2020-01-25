@@ -43,6 +43,9 @@ Route::group(['middleware' => ['auth', 'verified', 'subscriber']], function() {
     Route::get('settings/billing/cancel', 'BillingController@cancel')->name('cancel');      // Cancel Plan
 
     Route::get('settings/billing/resume', 'BillingController@resume')->name('resume');      // Resume Plan
+
+    Route::view('support', 'support')->name('support');
+    Route::post('support', 'SupportController@send')->name('support.send');
 });
 
 Route::group(['middleware' => ['auth', 'verified']], function() {
