@@ -6,6 +6,22 @@
 
     <div class="flex h-screen bg-gray-100 p-4 rotate">
         <div class="sm:max-w-xl md:max-w-2xl w-full m-auto">
+
+            @if (session('alert'))
+                <div class="container mx-auto max-w-3xl mt-8 mb-8">
+                    @php $alert_type = session('alert_type'); @endphp
+
+                    <div class="@if($alert_type == 'info'){{'bg-blue-700'}} 
+                                @elseif ($alert_type == 'success') {{'bg-green-700'}}
+                                @elseif ($alert_type == 'error')   {{'bg-red-700'}}
+                                @elseif ($alert_type == 'warning') {{'bg-orange-500'}}@endif rounded-lg text-white p-4" role="alert">
+
+                    <p class="font-bold">{{ ucfirst(session('alert_type')) }}</p>
+                        <p>{{ session('alert') }}</p>
+                    </div>
+                </div>
+            @endif
+
             <form method="POST" action="{{ route('login') }}" class="flex items-stretch bg-white rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">
                 @csrf
                 <div class="flex hidden overflow-hidden relative sm:block w-5/12 md:w-6/12 bg-gray-600 text-gray-300 py-4 bg-cover bg-center" style="background-image: url('/img/colorado.jpg')">
@@ -16,7 +32,7 @@
                 </div>
                 <div class="flex-1 p-6 sm:p-10 sm:py-12">
                     <h3 class="text-xl text-gray-700 font-bold mb-6">
-                        Login <span class="text-gray-500 font-normal">to your account</span></h3>
+                        Login <span class="text-gray-500 font-normal">with your email</span></h3>
 
                     <input id="email" type="email" class="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4 {{ $errors->has('email') ? ' border-red-500' : '' }}" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
                     @if ($errors->has('email'))
@@ -35,6 +51,11 @@
                             <a href="{{ route('password.request') }}">Forgot password?</a>
                         </div>
                     </div>
+
+                    {{-- Social Login --}}
+                    <p class="text-gray-500 font-medium mt-8 mb-4">or login with</p>
+                    
+                    @include('partials.oauth-buttons')
 
                     <p class="w-full text-xs text-left text-gray-700 mt-8">
                         Don't have an account?

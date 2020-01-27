@@ -18,7 +18,7 @@
                 </div>
                 <div class="flex-1 p-6 sm:p-10 sm:py-12">
                     <h3 class="text-xl text-gray-700 font-bold mb-6">
-                        Register <span class="text-gray-500 font-normal">for an account</span></h3>
+                        Register <span class="text-gray-500 font-normal">with your email</span></h3>
 
                     <input id="name" type="text" class="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4 {{ $errors->has('name') ? ' border-red-500' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Name">
                     @if ($errors->has('name'))
@@ -48,6 +48,11 @@
                             <input type="submit" value="Register" class="w-full sm:w-auto bg-green-500 text-white font-normal px-6 py-2 rounded hover:bg-indigo-600 focus:outline-none cursor-pointer">
                         </div>
                     </div>
+
+                    {{-- Social Signup --}}
+                    <p class="text-gray-500 font-medium mt-8 mb-4">or register with</p>
+
+                    @include('partials.oauth-buttons')
 
                     <p class="w-full text-xs text-left text-gray-700 mt-8">
                         Already have an account?
