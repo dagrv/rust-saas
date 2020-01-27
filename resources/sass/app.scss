@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#menu-toggle:checked+#menu {
+    display: block;
+}
+
+.radio-plan:checked+label {
+    @apply border-green-600;
+}
+
+#switch-plans-modal {
+    display: none;
+}
+
+#switch-plans {
+    width: 500px;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -200px;
+}
+
+.activeLink svg,
+.activeLink span,
+#nav li.activeLink a:hover svg,
+#nav li.activeLink a:hover span {
+    color: #677eea;
+    font-weight: bold;
+}
+
+#nav li a:hover svg,
+#nav li a:hover span {
+    color: #4b5668;
+}
+
+.fa-secondary {
+    opacity: 0.4;
+}
+
+.page {
+    p {
+        @apply text-lg text-gray-700 mt-4;
+    }
+    h2{
+        @apply font-bold text-2xl mt-10 mb-2;
+    }
+    ul {
+        @apply text-gray-900 list-disc ml-8 my-6;
+    }
+}

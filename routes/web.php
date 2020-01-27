@@ -67,3 +67,6 @@ Auth::routes(['verify' => true]);
 
 // Home (2)
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Privacy Policy & Terms and Conditions (via Dynamic routes)
+Route::get('p/{slug}', 'PageController@page')->name('page');
