@@ -65,9 +65,17 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
 // Auth & Email verification on SignUp
 Auth::routes(['verify' => true]);
 
-// Oauth
+// OAuth - GitHub
 Route::get('login/github', 'Auth\LoginController@redirectToGithubProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleGithubProviderCallback');
+
+// OAuth - Google
+Route::get('login/google', 'Auth\LoginController@redirectToGoogleProvider');
+Route::get('login/google/callback', 'Auth\LoginController@handleGoogleProviderCallback');
+
+// OAuth - Facebook
+Route::get('login/facebook', 'Auth\LoginController@redirectToFacebookProvider');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleFacebookProviderCallback');
 
 // Home (2)
 Route::get('/home', 'HomeController@index')->name('home');
