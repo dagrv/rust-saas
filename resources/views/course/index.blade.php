@@ -35,7 +35,7 @@
                 <a href="/#" class="inline-block w-auto bg-{{ $course->primary_color }}-500 px-8 py-4 text-white text-xl mt-10 mx-auto lg:mx-0 rounded-lg">Enroll Now</a>
             </div>
             <div class="w-full lg:w-1/2 pr-0 lg:pr-12 pb-8 lg:pb-0">
-                <!-- Video Cover -->
+                <!-- Video Covers -->
                 <div class="w-full h-64 bg-gray-300 py-48 my-20 relative cursor-pointer flex justify-center items-center">
                     <div class="bg-gray-200 w-20 h-20 rounded-full flex justify-center items-center">
                         <div class="arrow-right opacity-25 ml-2"></div>
