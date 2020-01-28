@@ -108,7 +108,7 @@ class LoginController extends Controller
                 'name' => $user->name ?? $user->nickname,           // For Abraham: A github user can have a name to blank, if so we fetch his nickname (username so to speak)
                 'email' => $user->email,
                 'password' => Hash::make(md5(uniqid() . now())),
-                'trial_ends_at' => now()->addDays(13),              // 12 Days Trial Period
+                'trial_ends_at' => now()->addDays(13),              // 13 Days Trial Period
                 'email_verified_at' => now(),
                 'auth_type' => $type
             ]);

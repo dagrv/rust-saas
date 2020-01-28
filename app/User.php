@@ -91,4 +91,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $unreadAnnouncements;
     }
+
+    public function courses()
+    {
+        return $this->hasMany('App\Course');
+    }
 }

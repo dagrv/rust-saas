@@ -25,6 +25,10 @@ Route::get('logout', function(){
 // Auth Middleware
 Route::group(['middleware' => ['auth', 'verified', 'subscriber']], function() {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');                                                  // Dashboard
+
+    Route::get('courses', 'CourseController@courses')->name('courses');                                                       // Courses
+
+
     Route::redirect('settings', 'settings/profile')->name('settings');                                                        // Settings Redirections
     
     // Profile
